@@ -17,7 +17,7 @@ public class CrossHair : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
     private Vector3 mousePosition;
-    public float moveSpeed = 0.1f;
+    public float moveSpeed = 1f;
     private void Update()
     {
         if (Aiming)
@@ -38,9 +38,11 @@ public class CrossHair : MonoBehaviour
         }
 
         crossHair.sizeDelta = new Vector2(currentSize, currentSize);
-        mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
+        //mousePosition = Input.mousePosition;
+        //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        //transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
+        transform.position = Input.mousePosition;
+        Cursor.visible = false;
     }
     bool Walking
     {
