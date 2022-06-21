@@ -1,19 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     #region Public
+
     public float moveSpeed = 5.0f;
     public Rigidbody2D Player;
     public Camera cam;
-    #endregion
+    public AudioClip walking;
 
-    Vector2 movement;
-    Vector2 mousePos;
+    #endregion Public
+
+    private Vector2 movement;
+    private Vector2 mousePos;
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -21,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Player.MovePosition(Player.position + movement * moveSpeed * Time.fixedDeltaTime);
 

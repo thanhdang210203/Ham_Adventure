@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CrossHair : MonoBehaviour
@@ -18,6 +16,7 @@ public class CrossHair : MonoBehaviour
     public Vector2 hotSpot = Vector2.zero;
     private Vector3 mousePosition;
     public float moveSpeed = 1f;
+
     private void Update()
     {
         if (Aiming)
@@ -44,13 +43,14 @@ public class CrossHair : MonoBehaviour
         transform.position = Input.mousePosition;
         Cursor.visible = false;
     }
-    bool Walking
+
+    private bool Walking
     {
         get
         {
-            if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
-                if(Input.GetKey(KeyCode.LeftShift) == false)
+                if (Input.GetKey(KeyCode.LeftShift) == false)
                 {
                     return true;
                 }
@@ -65,7 +65,8 @@ public class CrossHair : MonoBehaviour
             }
         }
     }
-    bool Running
+
+    private bool Running
     {
         get
         {
@@ -93,7 +94,7 @@ public class CrossHair : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1))
             {
-                if(!Walking && !Running)
+                if (!Walking && !Running)
                 {
                     return true;
                 }
