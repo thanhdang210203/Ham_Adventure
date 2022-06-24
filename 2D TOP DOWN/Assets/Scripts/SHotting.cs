@@ -27,6 +27,7 @@ public class SHotting : MonoBehaviour
     [SerializeField] private bool bulletIsLow = false;
     [SerializeField] private bool ableToReload = false;
     [SerializeField] private bool gun1Pickup = false;
+    //[SerializeField] private bool canReload = false;
 
     #endregion Private var
 
@@ -34,7 +35,6 @@ public class SHotting : MonoBehaviour
     {
         currentBullet = 0;
         totalBullet = 0;
-        ableToReload = false;
     }
 
     // Update is called once per frame
@@ -43,12 +43,12 @@ public class SHotting : MonoBehaviour
         if (currentBullet >= 1)
         {
             ableToShoot = true;
-            ableToReload = false;
+            
         }
         else if (currentBullet <= 0)
         {
             ableToShoot = false;
-            ableToReload = true;
+           
         }
         if (Input.GetButtonDown("Fire1"))
         {
@@ -63,20 +63,16 @@ public class SHotting : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.R))
         {
-            if (ableToReload)
+            if (currentBullet <= 0)
             {
-                StartCoroutine(Reload());
+                Reload();
             }
-            else if (!ableToReload && ableToShoot)
+            else
             {
-                //AudioSource.PlayClipAtPoint(emty, transform.position);
                 //Audio plays multiple times at once -> maybe display text
                 Debug.Log("Still got some bullet there mate");
             }
-            else if (!ableToReload)
-            {
-                Debug.Log("Fuck u");
-            }
+            
         }
     }
 
@@ -89,20 +85,29 @@ public class SHotting : MonoBehaviour
         Player.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }
 
-    private IEnumerator Reload()
+    void Reload()
     {
+        if (ableToReload)
+        {
         AudioSource.PlayClipAtPoint(reload, this.transform.position);
-        yield return new WaitForSeconds(reload.length);
         currentBullet += 20;
         totalBullet -= 20;
         Debug.Log("Reloading");
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(emty, this.transform.position);
+            Debug.Log("Go fuck yourself");
+        }
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (gun1)
         {
             gun1Pickup = true;
+            ableToReload = true;
             AudioSource.PlayClipAtPoint(pickUp, gun1.transform.position);
             currentBullet += 20;
             totalBullet += 100;
