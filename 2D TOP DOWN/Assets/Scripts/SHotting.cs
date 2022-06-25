@@ -69,13 +69,12 @@ public class SHotting : MonoBehaviour
             }
             else
             {
+                //AudioSource.PlayClipAtPoint(reload, this.transform.position);
                 //Audio plays multiple times at once -> maybe display text
                 Debug.Log("Still got some bullet there mate");
             }
-            
         }
     }
-
     private void Shoot()
     {
         currentBullet--;
@@ -100,8 +99,6 @@ public class SHotting : MonoBehaviour
             Debug.Log("Go fuck yourself");
         }
     }
-
-    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (gun1)
