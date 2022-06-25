@@ -48,7 +48,6 @@ public class SHotting : MonoBehaviour
         else if (currentBullet <= 0)
         {
             ableToShoot = false;
-           
         }
         if (Input.GetButtonDown("Fire1"))
         {
@@ -73,6 +72,11 @@ public class SHotting : MonoBehaviour
                 //Audio plays multiple times at once -> maybe display text
                 Debug.Log("Still got some bullet there mate");
             }
+        }
+        if(totalBullet <= 0)
+        {
+            ableToReload = false;
+            ableToShoot = false;
         }
     }
     private void Shoot()
@@ -104,6 +108,7 @@ public class SHotting : MonoBehaviour
         if (gun1)
         {
             gun1Pickup = true;
+            ableToShoot = true;
             ableToReload = true;
             AudioSource.PlayClipAtPoint(pickUp, gun1.transform.position);
             currentBullet += 20;
@@ -111,4 +116,5 @@ public class SHotting : MonoBehaviour
             Destroy(gun1);
         }
     }
+
 }
