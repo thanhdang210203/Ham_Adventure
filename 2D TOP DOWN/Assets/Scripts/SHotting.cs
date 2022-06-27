@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class SHotting : MonoBehaviour
@@ -15,6 +14,7 @@ public class SHotting : MonoBehaviour
     public GameObject gun1;
     public GameObject gun2;
     public GameObject gun3;
+    public GameObject addAmmo;
     public AudioClip pickUp;
 
     #endregion Public var
@@ -35,6 +35,7 @@ public class SHotting : MonoBehaviour
     {
         currentBullet = 0;
         totalBullet = 0;
+        ableToReload = false;
     }
 
     // Update is called once per frame
@@ -43,7 +44,6 @@ public class SHotting : MonoBehaviour
         if (currentBullet >= 1)
         {
             ableToShoot = true;
-            
         }
         else if (currentBullet <= 0)
         {
@@ -73,12 +73,13 @@ public class SHotting : MonoBehaviour
                 Debug.Log("Still got some bullet there mate");
             }
         }
-        if(totalBullet <= 0)
+        if (totalBullet <= 0 && currentBullet <= 0)
         {
             ableToReload = false;
             ableToShoot = false;
         }
     }
+
     private void Shoot()
     {
         currentBullet--;
@@ -88,21 +89,29 @@ public class SHotting : MonoBehaviour
         Player.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }
 
-    void Reload()
+    private void Reload()
     {
         if (ableToReload)
         {
-        AudioSource.PlayClipAtPoint(reload, this.transform.position);
-        currentBullet += 20;
-        totalBullet -= 20;
-        Debug.Log("Reloading");
+            AudioSource.PlayClipAtPoint(reload, this.transform.position);
+            currentBullet += 20;
+            totalBullet -= 20;
+            Debug.Log("Reloading");
         }
         else
         {
-            AudioSource.PlayClipAtPoint(emty, this.transform.position);
+            //AudioSource.PlayClipAtPoint(emty, this.transform.position);
             Debug.Log("Go fuck yourself");
         }
     }
+
+    public void plusAmmo(int ammoplus)
+    {
+        totalBullet += ammoplus;
+        AudioSource.PlayClipAtPoint(pickUp, this.transform.position);
+        Destroy(addAmmo);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (gun1)
@@ -110,11 +119,9 @@ public class SHotting : MonoBehaviour
             gun1Pickup = true;
             ableToShoot = true;
             ableToReload = true;
-            AudioSource.PlayClipAtPoint(pickUp, gun1.transform.position);
+            AudioSource.PlayClipAtPoint(pickUp, this.transform.position);
             currentBullet += 20;
-            totalBullet += 100;
             Destroy(gun1);
         }
     }
-
 }

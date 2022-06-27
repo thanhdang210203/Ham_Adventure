@@ -6,8 +6,10 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed = 5.0f;
     public Rigidbody2D Player;
+    public Rigidbody firePoint;
     public Camera cam;
     public AudioClip walking;
+    public Animator ani;
 
     #endregion Public
 
@@ -20,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        ani.SetFloat("Horizontal", movement.x);
+        ani.SetFloat("Vertical", movement.y);
+        ani.SetFloat("Speed", movement.sqrMagnitude);
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
@@ -30,5 +35,6 @@ public class PlayerMovement : MonoBehaviour
         Vector2 lookDir = mousePos - Player.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         Player.rotation = angle;
+        //firePoint.rotation = angle;
     }
 }
