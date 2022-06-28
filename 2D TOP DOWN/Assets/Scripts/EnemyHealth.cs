@@ -40,12 +40,10 @@ public class EnemyHealth : MonoBehaviour
     {
         EnemyDied = true;
         Debug.Log("Enemy dead");
-        //Animate.SetBool("isDead", true);
         StartCoroutine(WaitForDestroy());
-        self.SetActive(false);
-        Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Instantiate(ItemDrop, this.transform.position, Quaternion.identity);
         
+        
+
         if (EnemyDied)
         {
             if (this.gameObject.tag == "Skullman")
@@ -68,7 +66,9 @@ public class EnemyHealth : MonoBehaviour
 
     private IEnumerator WaitForDestroy()
     {
-        
-        yield return new WaitForSeconds(0.6f);
+        Animate.SetBool("isDead", true);
+        yield return new WaitForSeconds(1.0f);
+        Instantiate(ItemDrop, this.transform.position, Quaternion.identity);
+        Destroy(self);
     }
 }

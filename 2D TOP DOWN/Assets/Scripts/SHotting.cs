@@ -86,6 +86,7 @@ public class SHotting : MonoBehaviour
         AudioSource.PlayClipAtPoint(bulletShoot, transform.position);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D Player = bullet.GetComponent<Rigidbody2D>();
+        //bullet.transform.position = (firePoint.position - Input.mousePosition) * Time.deltaTime;
         Player.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }
 

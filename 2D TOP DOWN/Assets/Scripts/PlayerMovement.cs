@@ -6,14 +6,16 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed = 5.0f;
     public Rigidbody2D Player;
-    public Rigidbody firePoint;
+    public Rigidbody2D firePoint;
+    public GameObject crosshair;
     public Camera cam;
     public AudioClip walking;
     public Animator ani;
+    public GameObject holder;
 
     #endregion Public
 
-    private Vector2 movement;
+    public Vector2 movement;
     private Vector2 mousePos;
 
     // Update is called once per frame
@@ -31,10 +33,11 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Player.MovePosition(Player.position + movement * moveSpeed * Time.fixedDeltaTime);
-
+        firePoint.MovePosition(firePoint.position + movement * moveSpeed * Time.fixedDeltaTime);
+        firePoint.position = holder.transform.position;
         Vector2 lookDir = mousePos - Player.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        Player.rotation = angle;
-        //firePoint.rotation = angle;
+        //Player.rotation = angle;
+        firePoint.rotation = angle;
     }
 }

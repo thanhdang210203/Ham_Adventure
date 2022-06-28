@@ -13,6 +13,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        else if(collision.gameObject.tag == "Player")
+        {
+            Destroy(this.gameObject);
+        }
         //GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
         //Destroy(effect, 0.6f);
         //GetComponent<EnemyHealth>().TakeDamage(bulletDamage);
