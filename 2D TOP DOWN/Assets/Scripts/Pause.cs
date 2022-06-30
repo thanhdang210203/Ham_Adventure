@@ -9,16 +9,15 @@ public class Pause : MonoBehaviour
     private Score ScoreManager;
     public GameObject health;
     public GameObject score_text;
-    public GameObject PauseImage;
-    public GameObject ContinueImage;
-
+    public GameObject AmmoText;
+    public GameObject crosshair;
+    
     private void Start()
     {
         GamePaused = false;
         Cursor.visible = false;
         pauseMenu.SetActive(false);
-        PauseImage.SetActive(true);
-        ContinueImage.SetActive(false);
+        
         ScoreManager = FindObjectOfType<Score>();
     }
 
@@ -43,11 +42,12 @@ public class Pause : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         health.SetActive(true);
+        crosshair.SetActive(true);
         score_text.SetActive(true);
         Time.timeScale = 1f;
         GamePaused = false;
-        PauseImage.SetActive(true);
-        ContinueImage.SetActive(false);
+        AmmoText.SetActive(true);
+        
         
     }
 
@@ -58,9 +58,8 @@ public class Pause : MonoBehaviour
         score_text.SetActive(false);
         Time.timeScale = 0f;
         GamePaused = true;
-        PauseImage.SetActive(false);
-        ContinueImage.SetActive(true);
-        
+        AmmoText.SetActive(false);
+        crosshair.SetActive(false);
     }
 
     public void LoadMenu()
@@ -73,9 +72,12 @@ public class Pause : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-
+        health.SetActive(true);
+        crosshair.SetActive(true);
+        score_text.SetActive(true);
         Time.timeScale = 1f;
         GamePaused = false;
+        AmmoText.SetActive(true);
     }
 
     public void QuitGame()

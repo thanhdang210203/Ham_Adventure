@@ -12,6 +12,9 @@ public class EnemyHealth : MonoBehaviour
     public GameObject ItemDrop;
     private Score ScoreManager;
     public GameObject hitEffect;
+    public GameObject floatingPoints;
+    public AudioClip deadSound;
+    
 
     // Start is called before the first frame update
     private void Start()
@@ -23,13 +26,14 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
     }
 
     public void TakeDamage(int damage)
     {
         //Animate.SetTrigger("Hurt");
         currentHealth -= damage;
-
+        Instantiate(floatingPoints, transform.position, Quaternion.identity);
         if (currentHealth <= 0)
         {
             Die();
@@ -42,24 +46,27 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy dead");
         StartCoroutine(WaitForDestroy());
         
-        
+
 
         if (EnemyDied)
         {
-            if (this.gameObject.tag == "Skullman")
+            if (this.gameObject.tag == "GreenPig")
             {
-                Debug.Log("Skullman died");
-                ScoreManager.ScoreNum += 100;
+                Debug.Log("GreenPig died");
+                ScoreManager.ScoreNum += 40;
+                AudioSource.PlayClipAtPoint(deadSound, transform.position);
             }
-            else if (this.gameObject.tag == "SkullGuard")
+            else if (this.gameObject.tag == "PurplePig")
             {
-                Debug.Log("SkullGuard died");
-                ScoreManager.ScoreNum += 150;
+                Debug.Log("PurplePig died");
+                ScoreManager.ScoreNum += 100;
+                AudioSource.PlayClipAtPoint(deadSound, transform.position);
             }
             else if (this.gameObject.tag == "Skullman_Spear")
             {
                 Debug.Log("Skullman Spear died");
                 ScoreManager.ScoreNum += 200;
+                AudioSource.PlayClipAtPoint(deadSound, transform.position);
             }
         }
     }
@@ -68,7 +75,7 @@ public class EnemyHealth : MonoBehaviour
     {
         Animate.SetBool("isDead", true);
         yield return new WaitForSeconds(1.0f);
-        Instantiate(ItemDrop, this.transform.position, Quaternion.identity);
         Destroy(self);
+        Instantiate(ItemDrop, this.transform.position, Quaternion.identity);
     }
 }

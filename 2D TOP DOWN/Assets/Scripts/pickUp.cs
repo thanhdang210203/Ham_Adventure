@@ -4,9 +4,9 @@ using System.Collections;
 public class pickUp : MonoBehaviour
 {
     [SerializeField] private int healthValue = 20;
-    [SerializeField] private int attackAdd = 2;
+    
     public bool noDmg = false;
-    [SerializeField] private int ammoAdd = 50;
+    [SerializeField] private int ammoAdd = 25;
     // Start is called before the first frame update
     private void Start()
     {
@@ -34,9 +34,10 @@ public class pickUp : MonoBehaviour
             {
                 collision.GetComponent<SHotting>().plusAmmo(ammoAdd);
                 Destroy(gameObject);
-                Debug.Log("AttackGained");
+                Debug.Log("ammo picked up");
             }
         }
+        
         else if (this.gameObject.tag == "DeadZone")
         {
             if (collision.tag == "Player")

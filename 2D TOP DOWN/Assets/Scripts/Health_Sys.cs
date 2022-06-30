@@ -10,7 +10,6 @@ public class Health_Sys : MonoBehaviour
     public Health_Bar healthBar;
     public Animator Character_Ani;
     public int healthPickUp = 20;
-    public GameObject heart;
     private Score ScoreManager;
     [SerializeField] private bool canTakeDamage;
 
@@ -45,9 +44,13 @@ public class Health_Sys : MonoBehaviour
     {
         if (canTakeDamage == true)
         {
-            currentHealth -= damage;
-            Character_Ani.SetTrigger("isHurt");
-            healthBar.SetHealth(currentHealth);
+            
+                currentHealth -= damage;
+                Cine_Shake.Instance.ShakeCamera(5f, 1f);    
+                Character_Ani.SetTrigger("isHurt");
+                healthBar.SetHealth(currentHealth);
+            
+            
         }
         else if (canTakeDamage == false)
         {
@@ -68,15 +71,15 @@ public class Health_Sys : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Heart")
-        {
-            currentHealth += healthPickUp;
-            Debug.Log("health boosted");
-            heart.SetActive(false);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "Heart")
+    //    {
+    //        currentHealth += healthPickUp;
+    //        Debug.Log("health boosted");
+    //        heart.SetActive(false);
+    //    }
+    //}
 
     private IEnumerator Wait()
     {
