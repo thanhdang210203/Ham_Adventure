@@ -31,7 +31,7 @@ public class Health_Sys : MonoBehaviour
             Player_Dead = true;
             Character_Ani.SetBool("playerDead", true);
             Resources.UnloadUnusedAssets();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene("YouFail");
             ScoreManager.ScoreNum = 0;
         }
         if (currentHealth >= 100)

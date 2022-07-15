@@ -9,6 +9,7 @@ public class Score : MonoBehaviour
     public int scoreToPass;
     public GameObject levelPass;
     public Transform levelPassLo;
+    [SerializeField] private bool Passl = false;
     //[SerializeField] private int addScore;
     // Start is called before the first frame update
     public void Start()
@@ -24,7 +25,12 @@ public class Score : MonoBehaviour
         if(ScoreNum >= scoreToPass)
         {
             Destroy(spawner);
-            Instantiate(levelPass, levelPassLo.position, Quaternion.identity);
+            if (!Passl)
+            {
+                Instantiate(levelPass, levelPassLo.position, Quaternion.identity);
+                Passl = true;
+            }
+            
         }
     }
 

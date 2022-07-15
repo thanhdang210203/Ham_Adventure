@@ -8,6 +8,7 @@ public class Button_Click : MonoBehaviour
     private void Start()
     {
         scoreManager = FindObjectOfType<Score>();
+        Cursor.visible = true;
     }
 
     // Start is called before the first frame update

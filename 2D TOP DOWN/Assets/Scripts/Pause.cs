@@ -107,7 +107,8 @@ public class Pause : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         Resources.UnloadUnusedAssets();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("1");
+        
         ScoreManager.ScoreNum = 0;
     }
 }
